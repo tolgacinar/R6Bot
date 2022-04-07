@@ -94,10 +94,9 @@ if (Text_Commands) {
             let operators = [];
             let header;
 
-            let gameplatform = message.content.split(' ')[1]
-            let r6name = message.content.split(' ')[2];
-            let url_profile = `https://r6.tracker.network/profile/${gameplatform}/${r6name}`;
-            let url_operators = `https://r6.tracker.network/profile/${gameplatform}/${r6name}/operators`;
+            let r6name = message.content.split(' ')[1];
+            let url_profile = `https://r6.tracker.network/profile/pc/${r6name}`;
+            let url_operators = `https://r6.tracker.network/profile/pc/${r6name}/operators`;
 
             message.channel.sendTyping();
 
@@ -106,35 +105,20 @@ if (Text_Commands) {
                 return message.channel.send({ embeds: [embed.R6_help()] });
             }
 
-            else if (args[1] !== "PC" && args[1] !== "XBOX" && args[1] !== "PSN" && args[1] !== "PS4" && args[1] !== "PS5") {
-                console.log(PLATFORM, "PLATFORM_ERROR"); // if enter platform not pc/xbox/osn
-                return message.channel.send({ embeds: [embed.R6_help_platform()] });
-            }
+            
 
-            else if (args[3] === "OPERATOR") { // +R6 [platform] [name] operator ash/lesion...
-                console.log("OPERATORS");
-                if (R6.OperatorCheck(args[4])) {
-                    operators = await tracker.Operators(operators, url_operators);
-                    R6.R6_record(header, r6name, url_profile, profile);
-                    return message.channel.send({ embeds: [R6.Operators(operators, args[4])] });
-                }
-                else {
-                    return message.channel.send({ embeds: [embed.R6_help_operators()] });
-                }
-            }
-
-            else if (args[2] && (!args[3] || args[3] === "RANK" || args[3] === "CASUAL")) { // +R6 [platform] [name]  || +R6 [platform] [name] rank/casual
+            else if (args[1] && (!args[2] || args[2] === "RANK" || args[2] === "CASUAL")) { // +R6 [platform] [name]  || +R6 [platform] [name] rank/casual
 
                 profile = await tracker.Profile(profile, url_profile);
                 header = await tracker.Header(header, url_profile);
                 R6.R6_record(header, r6name, url_profile, profile);
 
                 if (profile.length) { //Check if the searched player is correct (exists)
-                    if (args[3] === "RANK") {
+                    if (args[2] === "RANK") {
                         console.log("PROFILE_RANK");
                         return message.channel.send({ embeds: [R6.Rank(profile)] });
                     }
-                    else if (args[3] === "CASUAL") {
+                    else if (args[2] === "CASUAL") {
                         console.log("PROFILE_CASUAL");
                         return message.channel.send({ embeds: [R6.Casual(profile)] });
                     }
@@ -148,7 +132,7 @@ if (Text_Commands) {
                     return message.channel.send({ embeds: [embed.R6_Not_Found()] });
                 }
             }
-            else if (args[2] && args[3]) {
+            else if (args[1] && args[2]) {
                 console.log("FORMAT_ERROR");
                 return message.channel.send({ embeds: [embed.R6_help()] });
             }

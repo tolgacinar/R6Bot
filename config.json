@@ -1,11 +1,11 @@
 {
-    "TOKEN": "yourToken",
-    "CLIENT_ID": "yourClientID",
-    "GUILD_ID": "yourGuildID",
+    "TOKEN": "OTQ2NjkwNTc4MzQxNTc2NzM0.YhiYTg.LT8-chFsLGUj7c6UQrCjz57mwDk",
+    "CLIENT_ID": "946690578341576734",
+    "GUILD_ID": "430449646171717643",
     "Text_Commands": true,
     "Slash_Commands": true,
     "load_Slash_Global": false,
     "tracker_timeout": 5000,
     "PREFIX": "+",
-    "name": "R6Bot"
+    "name": "Tolganın R6 Botu"
 }
